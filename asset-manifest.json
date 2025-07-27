@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.2a623a8b.css",
-    "main.js": "/static/js/main.45a5323e.js",
+    "main.css": "/static/css/main.6c1e5fd0.css",
+    "main.js": "/static/js/main.14624b0c.js",
     "static/media/zero-savvy.jpg": "/static/media/zero-savvy.1e6c5788c25f6547117b.jpg",
     "index.html": "/index.html",
-    "main.2a623a8b.css.map": "/static/css/main.2a623a8b.css.map",
-    "main.45a5323e.js.map": "/static/js/main.45a5323e.js.map"
+    "main.6c1e5fd0.css.map": "/static/css/main.6c1e5fd0.css.map",
+    "main.14624b0c.js.map": "/static/js/main.14624b0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a623a8b.css",
-    "static/js/main.45a5323e.js"
+    "static/css/main.6c1e5fd0.css",
+    "static/js/main.14624b0c.js"
   ]
 }
