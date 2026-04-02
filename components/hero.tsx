@@ -25,8 +25,8 @@ export function Hero() {
               <span className="annotation">About</span>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
             </div>
-            <p className="mt-3 text-sm text-foreground max-w-[200px] text-right leading-relaxed">
-              Zero Savvy builds cryptographic infrastructure for verifiable provenance that preserves privacy.
+            <p className="mt-3 text-lg text-foreground max-w-[300px] text-right leading-relaxed">
+              We build cryptographic infrastructure for verifiable provenance that preserves individuals' privacy
             </p>
           </motion.div>
 
@@ -38,9 +38,9 @@ export function Hero() {
             className="lg:col-span-6 flex items-center justify-center relative"
           >
             {/* Concentric circles */}
-            <div className="absolute w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full border border-border/40" />
-            <div className="absolute w-[320px] h-[320px] md:w-[400px] md:h-[400px] rounded-full border border-border/60" />
-            <div className="absolute w-[240px] h-[240px] md:w-[300px] md:h-[300px] rounded-full border border-border/80 dot-pattern" />
+            <div className="absolute w-[450px] h-[450px] md:w-[500px] md:h-[500px] rounded-full border border-border/40" />
+            <div className="absolute w-[380px] h-[380px] md:w-[400px] md:h-[400px] rounded-full border border-border/60" />
+            <div className="absolute w-[280px] h-[280px] md:w-[300px] md:h-[300px] rounded-full border border-border/80 dot-pattern" />
             
             {/* Connection points */}
             <div className="absolute w-3 h-3 bg-foreground rounded-sm top-1/4 right-[10%] md:right-[5%]" />
@@ -51,9 +51,9 @@ export function Hero() {
             <Image 
               src="/logo.png" 
               alt="Zero Savvy" 
-              width={180} 
-              height={180}
-              className="w-36 h-36 md:w-44 md:h-44 object-contain relative z-10"
+              width={220} 
+              height={220}
+              className="w-50 h-50 md:w-60 md:h-60 object-contain relative z-10"
               priority
             />
           </motion.div>
@@ -70,18 +70,18 @@ export function Hero() {
                 <span className="annotation">Open Source</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
               </div>
-              <p className="mt-3 text-sm text-foreground max-w-[220px] leading-relaxed">
-                All core libraries are MIT-licensed. Transparency and auditability are fundamental.
+              <p className="mt-3 text-lg text-foreground max-w-[250px] leading-relaxed">
+                All core libraries are MIT-licensed. Transparency and auditability are fundamental
               </p>
             </div>
             
             <div>
               <div className="flex items-center gap-4">
-                <span className="annotation">Research</span>
+                <span className="annotation text-xl">Research</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
               </div>
-              <p className="mt-3 text-sm text-foreground max-w-[220px] leading-relaxed">
-                Published at PETS, NDSS, and other leading security venues.
+              <p className="mt-3 text-lg text-foreground max-w-[250px] leading-relaxed">
+                Published at leading security venues (NDSS, PETS, . . .)
               </p>
             </div>
           </motion.div>

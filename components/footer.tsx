@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, XIcon } from "lucide-react";
 import Image from "next/image";
 
 const navLinks = [
@@ -13,9 +13,9 @@ const navLinks = [
 
 const socialLinks = [
   {
-    name: "Twitter",
+    name: "Social",
     href: "https://x.com/zero_savvy",
-    icon: Twitter,
+    icon: XIcon,
   },
   {
     name: "LinkedIn",
@@ -43,7 +43,7 @@ export function Footer() {
             className="lg:col-span-4"
           >
             <Image 
-              src="/logo.png" 
+              src="/dark-logo.png" 
               alt="Zero Savvy" 
               width={64} 
               height={64}

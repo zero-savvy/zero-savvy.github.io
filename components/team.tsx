@@ -7,18 +7,20 @@ import { Linkedin, Github } from "lucide-react";
 
 const team = [
   {
-    name: "Saba Eskandarian",
-    role: "Co-founder",
-    credential: "Assistant Professor at UNC Chapel Hill. PhD from Stanford.",
-    linkedin: "https://linkedin.com/in/sabaeskandarian",
-    github: "https://github.com/sabaeskandarian",
+    name: "Shahriar Ebrahimi",
+    role: "Co-founder | CEO",
+    credential: "Applied Cryptographer, PhD in Computer Engineering from Aryamehr University of Technology (2021).",
+    linkedin: "https://www.linkedin.com/in/shahriar-ebrahimi/",
+    github: "https://github.com/lovely-necromancer",
+    X: "https://x.com/lovely_necro"
   },
   {
-    name: "Hossein Ebrahimi",
-    role: "Co-founder",
-    credential: "PhD Candidate at UNC Chapel Hill. MSc from Sharif University of Technology.",
-    linkedin: "https://linkedin.com/in/sh-ebrahimi",
-    github: "https://github.com/sh-ebrahimi",
+    name: "Parisa Hassanizadeh",
+    role: "Co-founder | CTO",
+    credential: "Applied Cryptographer, PhD Candidate at IPPT Polish Academy of Science.",
+    linkedin: "https://www.linkedin.com/in/parisa-hassanizadeh/",
+    github: "https://github.com/parizad1188",
+    X: "https://x.com/PHassanizadeh",
   },
 ];
 
