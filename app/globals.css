@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0a0f14;
+  --color-foreground: #f8fafc;
+  --color-card: #0d1319;
+  --color-card-foreground: #f8fafc;
+  --color-muted: #1a2332;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #1e293b;
+  --color-accent-foreground: #f8fafc;
+  --color-border: #1e3a4d;
+  --color-primary: #5eead4;
+  --color-primary-foreground: #0a0f14;
+  --color-secondary: #1a2332;
+  --color-secondary-foreground: #f8fafc;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-ring: #5eead4;
+  --color-navy: #1e293b;
+  --color-teal-glow: rgba(94, 234, 212, 0.15);
+  
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  
+  --radius: 0.5rem;
+  --radius-sm: 0.25rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+/* Subtle glow effect for accents - teal crystalline glow */
+.glow {
+  box-shadow: 0 0 40px rgba(94, 234, 212, 0.15);
+}
+
+.glow-strong {
+  box-shadow: 0 0 60px rgba(94, 234, 212, 0.25), 0 0 100px rgba(94, 234, 212, 0.1);
+}
+
+.glow-text {
+  text-shadow: 0 0 30px rgba(94, 234, 212, 0.4);
+}
+
+/* Geometric grid pattern - inspired by logo's geometric aesthetic */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(94, 234, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 234, 212, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Crystalline facet pattern */
+.facet-pattern {
+  background-image: 
+    linear-gradient(60deg, transparent 48%, rgba(94, 234, 212, 0.02) 50%, transparent 52%),
+    linear-gradient(-60deg, transparent 48%, rgba(94, 234, 212, 0.02) 50%, transparent 52%);
+  background-size: 80px 80px;
+}
+
+/* Subtle gradient overlays - teal radial */
+.gradient-radial {
+  background: radial-gradient(ellipse at center, rgba(94, 234, 212, 0.08) 0%, transparent 70%);
+}
+
+/* Code/terminal style */
+.code-text {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-primary);
+}
+
+/* Geometric card style */
+.geometric-card {
+  background: linear-gradient(135deg, var(--color-card) 0%, rgba(30, 58, 77, 0.3) 100%);
+  border: 1px solid var(--color-border);
+}
+
+/* Animated gradient border */
+@keyframes border-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-border {
+  background: linear-gradient(90deg, var(--color-border), var(--color-primary), var(--color-border));
+  background-size: 200% 100%;
+  animation: border-flow 3s ease infinite;
+}
+
+/* Pulse animation for crystalline effect */
+@keyframes pulse-teal {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulse-crystal {
+  animation: pulse-teal 3s ease-in-out infinite;
+}
