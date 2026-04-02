@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Image, MessageSquare, User, ArrowRight } from "lucide-react";
+import { ImageIcon, MessageSquare, User, ArrowRight } from "lucide-react";
 
 const domains = [
   {
-    icon: Image,
+    icon: ImageIcon,
     label: "Media",
     description: "Verifiable authenticity for images, video, and audio content.",
   },
