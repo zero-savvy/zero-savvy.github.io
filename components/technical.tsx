@@ -105,9 +105,12 @@ export function Technical() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="p-6 rounded-xl border border-border bg-card/50"
+                className="p-6 rounded-xl border border-border bg-card/50 relative overflow-hidden group hover:border-primary/50 transition-colors duration-300"
               >
-                <div className="flex items-start justify-between gap-4">
+                {/* Geometric corner accent */}
+                <div className="absolute bottom-0 left-0 w-12 h-12 border-l-2 border-b-2 border-primary/20 group-hover:border-primary/40 transition-colors duration-300" />
+                
+                <div className="flex items-start justify-between gap-4 relative">
                   <div>
                     <h3 className="font-medium">{tech.name}</h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">

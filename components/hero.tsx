@@ -6,8 +6,9 @@ import { CryptoFlowAnimation } from "./crypto-flow-animation";
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Elements */}
+      {/* Background Elements - geometric patterns */}
       <div className="absolute inset-0 grid-pattern" />
+      <div className="absolute inset-0 facet-pattern" />
       <div className="absolute inset-0 gradient-radial" />
       
       {/* Content */}

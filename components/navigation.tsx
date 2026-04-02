@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navLinks = [
   { href: "#vision", label: "Vision" },
@@ -38,7 +39,14 @@ export function Navigation() {
     >
       <nav className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <a href="#" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-3">
+            <Image 
+              src="/logo.png" 
+              alt="Zero Savvy Logo" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
             <span className="text-xl font-semibold tracking-tight">
               Zero<span className="text-primary">Savvy</span>
             </span>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
+import Image from "next/image";
 
 const socialLinks = [
   {
@@ -30,13 +31,23 @@ export function Footer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
+            className="flex items-center gap-4"
           >
-            <span className="text-lg font-semibold tracking-tight">
-              Zero<span className="text-primary">Savvy</span>
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Cryptographic infrastructure for verifiable provenance.
-            </p>
+            <Image 
+              src="/logo.png" 
+              alt="Zero Savvy Logo" 
+              width={48} 
+              height={48}
+              className="w-12 h-12 object-contain"
+            />
+            <div>
+              <span className="text-lg font-semibold tracking-tight">
+                Zero<span className="text-primary">Savvy</span>
+              </span>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Cryptographic infrastructure for verifiable provenance.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div

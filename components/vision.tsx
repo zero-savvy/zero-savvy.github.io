@@ -9,7 +9,10 @@ export function Vision() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="vision" className="py-24 md:py-32 relative">
+    <section id="vision" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Geometric background elements */}
+      <div className="absolute top-1/2 left-0 w-32 h-32 border-l-2 border-t-2 border-primary/10 -translate-y-1/2" />
+      <div className="absolute top-1/2 right-0 w-32 h-32 border-r-2 border-b-2 border-primary/10 -translate-y-1/2" />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div ref={ref} className="max-w-3xl mx-auto text-center">
           <motion.span

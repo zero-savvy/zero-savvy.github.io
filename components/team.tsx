@@ -56,9 +56,13 @@ export function Team() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="p-6 rounded-xl border border-border bg-background"
+              className="p-6 rounded-xl border border-border bg-background relative overflow-hidden group hover:border-primary/50 transition-colors duration-300"
             >
-              <div className="flex items-start justify-between">
+              {/* Crystalline corner accents */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-primary/20 group-hover:border-primary/50 transition-colors duration-300" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-primary/20 group-hover:border-primary/50 transition-colors duration-300" />
+              
+              <div className="flex items-start justify-between relative">
                 <div>
                   <h3 className="font-medium text-lg">{member.name}</h3>
                   <p className="text-sm text-primary">{member.role}</p>

@@ -80,8 +80,11 @@ export function Approach() {
                 <div className="hidden md:block absolute top-8 left-full w-full h-px bg-border -z-10" />
               )}
 
-              <div className="p-6 rounded-xl border border-border bg-background">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+              <div className="p-6 rounded-xl border border-border bg-background relative overflow-hidden group hover:border-primary/50 transition-colors duration-300">
+                {/* Geometric accent */}
+                <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-primary/20 group-hover:border-primary/40 transition-colors duration-300" />
+                
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 relative">
                   <step.icon className="w-6 h-6 text-primary" />
                 </div>
 
