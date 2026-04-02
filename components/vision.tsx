@@ -9,36 +9,33 @@ export function Vision() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="vision" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Geometric background elements */}
-      <div className="absolute top-1/2 left-0 w-32 h-32 border-l-2 border-t-2 border-primary/10 -translate-y-1/2" />
-      <div className="absolute top-1/2 right-0 w-32 h-32 border-r-2 border-b-2 border-primary/10 -translate-y-1/2" />
+    <section id="about" className="py-24 md:py-32 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div ref={ref} className="max-w-3xl mx-auto text-center">
-          <motion.span
+        <div ref={ref} className="max-w-4xl">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="code-text tracking-widest uppercase text-sm"
+            className="flex items-center gap-4 mb-8"
           >
-            Vision
-          </motion.span>
+            <div className="w-12 h-px bg-foreground" />
+            <span className="annotation">Vision</span>
+          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-4 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-balance"
+            className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-balance"
           >
-            Default trust for digital content and identity —{" "}
-            <span className="text-primary">without centralized surveillance</span>
+            Default trust for digital content and identity — without centralized surveillance.
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg text-muted-foreground leading-relaxed"
+            className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-2xl"
           >
             We envision a world where authenticity is verifiable by design, 
             where trust is established through mathematics rather than institutions, 

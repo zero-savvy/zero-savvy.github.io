@@ -1,24 +1,25 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0a0f14;
-  --color-foreground: #f8fafc;
-  --color-card: #0d1319;
-  --color-card-foreground: #f8fafc;
-  --color-muted: #1a2332;
-  --color-muted-foreground: #94a3b8;
-  --color-accent: #1e293b;
-  --color-accent-foreground: #f8fafc;
-  --color-border: #1e3a4d;
-  --color-primary: #5eead4;
-  --color-primary-foreground: #0a0f14;
-  --color-secondary: #1a2332;
-  --color-secondary-foreground: #f8fafc;
+  --color-background: #fafafa;
+  --color-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
+  --color-border: #e2e8f0;
+  --color-primary: #14b8a6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1e3a4d;
+  --color-secondary-foreground: #ffffff;
   --color-destructive: #ef4444;
-  --color-destructive-foreground: #f8fafc;
-  --color-ring: #5eead4;
-  --color-navy: #1e293b;
-  --color-teal-glow: rgba(94, 234, 212, 0.15);
+  --color-destructive-foreground: #ffffff;
+  --color-ring: #14b8a6;
+  --color-navy: #1e3a4d;
+  --color-teal: #5eead4;
+  --color-dark: #0f172a;
   
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
@@ -46,79 +47,65 @@ body {
   color: var(--color-primary-foreground);
 }
 
-/* Subtle glow effect for accents - teal crystalline glow */
-.glow {
-  box-shadow: 0 0 40px rgba(94, 234, 212, 0.15);
-}
-
-.glow-strong {
-  box-shadow: 0 0 60px rgba(94, 234, 212, 0.25), 0 0 100px rgba(94, 234, 212, 0.1);
-}
-
-.glow-text {
-  text-shadow: 0 0 30px rgba(94, 234, 212, 0.4);
-}
-
-/* Geometric grid pattern - inspired by logo's geometric aesthetic */
+/* Minimal grid pattern */
 .grid-pattern {
   background-image: 
-    linear-gradient(rgba(94, 234, 212, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94, 234, 212, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(30, 58, 77, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 58, 77, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-/* Crystalline facet pattern */
-.facet-pattern {
-  background-image: 
-    linear-gradient(60deg, transparent 48%, rgba(94, 234, 212, 0.02) 50%, transparent 52%),
-    linear-gradient(-60deg, transparent 48%, rgba(94, 234, 212, 0.02) 50%, transparent 52%);
-  background-size: 80px 80px;
+/* Subtle dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(rgba(30, 58, 77, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Subtle gradient overlays - teal radial */
-.gradient-radial {
-  background: radial-gradient(ellipse at center, rgba(94, 234, 212, 0.08) 0%, transparent 70%);
+/* Connection line */
+.connection-line {
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  height: 1px;
 }
 
-/* Code/terminal style */
+/* Annotation style */
+.annotation {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+/* Code style */
 .code-text {
   font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--color-primary);
 }
 
-/* Geometric card style */
-.geometric-card {
-  background: linear-gradient(135deg, var(--color-card) 0%, rgba(30, 58, 77, 0.3) 100%);
-  border: 1px solid var(--color-border);
+/* Dark section */
+.dark-section {
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
-/* Animated gradient border */
-@keyframes border-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+.dark-section .text-muted-foreground {
+  color: #94a3b8;
 }
 
-.animated-border {
-  background: linear-gradient(90deg, var(--color-border), var(--color-primary), var(--color-border));
-  background-size: 200% 100%;
-  animation: border-flow 3s ease infinite;
+/* Geometric accent */
+.geometric-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--color-border);
 }
 
-/* Pulse animation for crystalline effect */
-@keyframes pulse-teal {
-  0%, 100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
+/* Subtle hover */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.pulse-crystal {
-  animation: pulse-teal 3s ease-in-out infinite;
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
