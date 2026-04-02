@@ -13,9 +13,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zero Savvy | Cryptographic Infrastructure for Media Authenticity",
+  title: "Zero Savvy | Cryptographic Infrastructure for Verifiable Provenance",
   description:
-    "Building cryptographic infrastructure for verifying media authenticity and provenance without exposing sensitive data. Verification without trust or data exposure.",
+    "Building cryptographic infrastructure for verifiable provenance that preserves privacy. Zero-knowledge proofs for media authenticity without data exposure.",
   keywords: [
     "zero-knowledge proofs",
     "cryptography",
@@ -23,6 +23,8 @@ export const metadata: Metadata = {
     "provenance",
     "privacy",
     "verification",
+    "zkp",
+    "deep tech",
   ],
   authors: [{ name: "Zero Savvy" }],
   openGraph: {
@@ -30,20 +32,20 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://zerosavvy.xyz",
     siteName: "Zero Savvy",
-    title: "Zero Savvy | Cryptographic Infrastructure for Media Authenticity",
+    title: "Zero Savvy | Cryptographic Infrastructure for Verifiable Provenance",
     description:
-      "Building cryptographic infrastructure for verifying media authenticity and provenance without exposing sensitive data.",
+      "Building cryptographic infrastructure for verifiable provenance that preserves privacy.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zero Savvy | Cryptographic Infrastructure for Media Authenticity",
+    title: "Zero Savvy | Cryptographic Infrastructure for Verifiable Provenance",
     description:
-      "Building cryptographic infrastructure for verifying media authenticity and provenance without exposing sensitive data.",
+      "Building cryptographic infrastructure for verifiable provenance that preserves privacy.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#fafafa",
   width: "device-width",
   initialScale: 1,
 };
@@ -54,8 +56,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
+    <html lang="en">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

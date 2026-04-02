@@ -3,23 +3,22 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ShieldCheck, Minimize2, Globe } from "lucide-react";
 
-const principles = [
+const pillars = [
   {
-    icon: ShieldCheck,
+    number: "01",
     title: "Verification without disclosure",
-    description: "Prove authenticity without revealing sensitive content",
+    description: "Prove authenticity without revealing the underlying content or metadata.",
   },
   {
-    icon: Minimize2,
+    number: "02", 
     title: "Minimal trust assumptions",
-    description: "Cryptographic guarantees over institutional promises",
+    description: "No centralized authorities. Mathematical guarantees replace institutional trust.",
   },
   {
-    icon: Globe,
+    number: "03",
     title: "Open validation",
-    description: "Anyone can verify, no gatekeepers required",
+    description: "Anyone can independently verify proofs. No gatekeepers required.",
   },
 ];
 
@@ -28,59 +27,46 @@ export function Mission() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 md:py-32 relative bg-card/50">
+    <section className="py-24 md:py-32 relative border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div ref={ref} className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left content */}
+        <div ref={ref} className="grid lg:grid-cols-2 gap-16">
+          {/* Left - Mission statement */}
           <div>
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="code-text tracking-widest uppercase text-sm"
+              className="flex items-center gap-4 mb-8"
             >
-              Mission
-            </motion.span>
+              <div className="w-12 h-px bg-foreground" />
+              <span className="annotation">Mission</span>
+            </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-balance"
+              className="text-2xl md:text-3xl font-medium tracking-tight leading-tight"
             >
-              Building infrastructure for verifiable provenance that{" "}
-              <span className="text-primary">preserves privacy</span>
+              Building infrastructure for verifiable provenance that preserves individuals&apos; privacy.
             </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 text-muted-foreground leading-relaxed"
-            >
-              Our mission is to develop the cryptographic primitives and systems 
-              that enable verification of digital content provenance while 
-              preserving the privacy of individuals and the integrity of their data.
-            </motion.p>
           </div>
 
-          {/* Right content - Principles */}
-          <div className="flex flex-col gap-6">
-            {principles.map((principle, index) => (
+          {/* Right - Pillars */}
+          <div className="flex flex-col gap-8">
+            {pillars.map((pillar, index) => (
               <motion.div
-                key={principle.title}
-                initial={{ opacity: 0, x: 20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                key={pillar.number}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                className="flex gap-4 p-4 rounded-lg border border-border bg-background/50"
+                className="flex gap-6"
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <principle.icon className="w-5 h-5 text-primary" />
-                </div>
+                <span className="text-sm font-mono text-muted-foreground">{pillar.number}</span>
                 <div>
-                  <h3 className="font-medium">{principle.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {principle.description}
+                  <h3 className="font-medium">{pillar.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {pillar.description}
                   </p>
                 </div>
               </motion.div>
