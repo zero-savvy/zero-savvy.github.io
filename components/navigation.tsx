@@ -11,6 +11,7 @@ const navLinks = [
   { href: "#approach", label: "Approach" },
   { href: "#research", label: "Research" },
   { href: "#team", label: "Team" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export function Navigation() {
