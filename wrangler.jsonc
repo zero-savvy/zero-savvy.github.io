@@ -1,12 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "zerosavvy-xyz",
+  "name": "zero-savvy",
   "compatibility_date": "2025-09-27",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": "./out"
   },
   "compatibility_flags": [
     "nodejs_compat"
