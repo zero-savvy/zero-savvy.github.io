@@ -1,7 +1,7 @@
 ---
 title: "VIMz: Proving an Image Was Edited Honestly — Without a Trusted Editor"
 description: "How folding-based zkSNARKs let us prove image edits are authentic on 8K photos, using under 10GB of RAM and 10KB proofs — no trusted software, no exposed originals."
-date: "2026-07-26"
+date: "2026-08-10"
 author: "Zero Savvy Team"
 tags: ["zksnarks", "nova", "folding-schemes", "c2pa", "image-provenance", "circom", "research"]
 ---
@@ -12,7 +12,7 @@ The industry's leading answer right now is [C2PA](https://c2pa.org/) (Coalition 
 
 There's a cleaner cryptographic answer: zkSNARKs. Instead of trusting software, you get a *proof* that a specific set of edits was applied to a validly signed original — publicly checkable, revealing nothing about the source image or the editor's identity. The catch, as prior work has shown, is brutal resource cost: one existing approach needs **over 300GB of RAM** and **21+ minutes** just to prove a single convolution-based edit on an HD image. That's not a laptop workflow — that's a server farm.
 
-We built **VIMz** to fix that, published at [PETS 2025](https://petsymposium.org/). Short version: same cryptographic guarantees, ~30x less memory, run entirely on a midrange laptop, and it scales to 8K.
+We built [**VIMz**](https://github.com/zero-savvy/vimz) to fix that, published at [PETS 2025](https://petsymposium.org/popets/2025/popets-2025-0065.pdf). Short version: same cryptographic guarantees, ~30x less memory, run entirely on a midrange laptop, and it scales to 8K.
 
 ## Why this is hard (and why C2PA cuts corners)
 
@@ -26,7 +26,18 @@ C2PA sidesteps this cost entirely by not using ZK proofs at all — it just sign
 
 The insight behind VIMz is simple to state: most real-world image edits — grayscale, contrast, brightness, blur, sharpen, resize, crop — only need to look at a pixel and maybe its close neighbors. They don't need global context. That means you can process an image **row by row**, proving each row's transformation independently, and then *fold* all those row-level proofs together into one compact proof using a technique called **Incrementally Verifiable Computation (IVC)** — specifically, [Nova](https://github.com/microsoft/Nova)'s folding scheme.
 
+![Protocol](nova.png)
+<p align="center">
+ <em>Figure (1): The folding scheme structure in Nova.</em>
+</p>
+
 Instead of one massive circuit holding the whole image in memory, you get a small circuit that runs once per row, folding its result into a running accumulator. Peak memory becomes proportional to *one row plus overhead*, not the whole image. That's the whole trick, and it's why VIMz's memory footprint barely moves as resolution climbs from HD to 8K.
+
+![Protocol](row-by-row.png)
+<p align="center">
+ <em>Figure (2): Row-by-row traversal in VIMz.</em>
+</p>
+
 
 Each fold step does two things simultaneously:
 1. Verifies the transformation was applied correctly to that row (e.g., the grayscale formula, or a blur convolution kernel).
@@ -62,16 +73,11 @@ z_i = (h_α^i, h_β^i)
 
 and the private witness `ω_i` at each step is the actual pixel data for row `i` of both the original (`α_i`) and transformed (`β_i`) image. The step function does two jobs at once: apply and check the transformation on that row, and extend both hash chains. This dual-purpose step is the "folding-friendly verifiable image transformer" we formalize in the paper (`𝓕_T`).
 
-## The hash chain construction
+![Protocol](vimz-fold.png)
+<p align="center">
+ <em>Figure (3): Folding steps of VIMz.</em>
+</p>
 
-We can't just hash the whole image at once — that would put us right back in "load everything into one circuit" territory. Instead we build a row-wise Merkle-Damgård-style chain using Poseidon:
-
-```
-H_σ(row) = H(row[n-1] | H(row[n-2] | ... | H(row[0] | 0)))
-h^i = H(h^{i-1} | H_σ(row_i))
-```
-
-So `H_σ` hashes a single row, and `h^i` folds that row hash into the cumulative image hash. After the final row, `h^n` is the complete image hash — computed incrementally, one row at a time, with no need to ever hold the whole image in the R1CS witness simultaneously. This is what lets peak memory scale with *row size* instead of *image size*.
 
 ## Fixed-point math in a prime field
 
@@ -104,6 +110,11 @@ selector.c[1] = trans_hasher.hash     // branch: in crop area
 selector.s = (row_index >= crop_y) * (row_index < crop_y + crop_height)
 ```
 
+![Protocol](crop.png)
+<p align="center">
+ <em>Figure (4): Realising crop in row-by-row traverse.</em>
+</p>
+
 There's a second, harder problem hiding in "which *columns*." Selecting an arbitrary horizontal subset of a row at *runtime* requires a multiplexer of width `crop_width`, each handling `|row_width - crop_width|` possible input positions — expensive. We support two modes: a **prover-optimized** crop where `x, y` are baked into the circuit at compile time (cheap, but needs a fresh verification key per crop location — fine for local editing, awkward for on-chain verifiers), and a **verifier-optimized "selective crop"** with real multiplexers so `x, y` become normal runtime public inputs. Selective crop is significantly more expensive (roughly 5x the proving time of fixed crop at HD, per our benchmarks) — that's the direct cost of runtime flexibility in R1CS.
 
 **Resize** breaks row-parallelism differently: the *ratio* of input rows to output rows isn't 1:1. Downscaling HD (720 rows) to SD (480 rows) is a 3:2 ratio, so each fold step actually has to consume 3 original rows to produce 2 resized rows, running bilinear interpolation across up to 4 neighboring source pixels per output pixel. Since resolutions are fixed ahead of time for a given deployment, the interpolation weights become circuit constants rather than runtime values — this keeps the constraint count low (the resize circuit at Merkle height 20 sits around the same constraint count as grayscale, ~5K gates).
@@ -131,13 +142,16 @@ component toBits = Num2Bits(240);
 // pack 10 pixels × 3 channels into `in`
 ```
 
+![Protocol](compression.png)
+<p align="center">
+ <em>Figure (5): Lossless compression technique in VIMz.</em>
+</p>
+
 This is why hashing drops by ~30x — instead of hashing every individual byte, Poseidon operates over pre-packed field elements. The cost is that you need a **decompression** circuit downstream (splitting the packed field element back into individual 8-bit channel values via `Bits2Num`) any time you need to actually operate on individual pixel values rather than just their hash.
 
 ## Soundness, in one paragraph
 
 The security argument reduces to two things holding: Poseidon's collision resistance, and Nova/Spartan's knowledge soundness. If a cheating prover could get a proof accepted for a wrong final image `β' ≠ β` where `H_φ(β') = h_β^n`, they'd have found a hash collision — negligible probability. If they instead try to sneak in a valid-looking proof with the wrong public inputs entirely (wrong `z_0` or `z_n`), that's broken by Nova's own IVC soundness guarantee. There's no separate "trust the transformation logic" assumption — it's fully reduced to primitives we already assume are hard to break.
-
-That's the mechanical core of it — happy to go deeper on any specific piece (the Nova folding math itself, the Spartan compression step, or the smart-contract side for the marketplace appendix) if useful.
 
 ## Where folding doesn't help (yet)
 
@@ -153,12 +167,33 @@ VIMz is built on:
 - **Spartan** to compress the final IVC proof into a succinct SNARK
 - **Python** for the transformation interface that prepares circuit inputs
 
-It's fully open source, with sample images at SD/HD/4K resolutions and pre-built transformation configs so you can reproduce our benchmarks without touching a single line of circuit code.
+
+![Protocol](arch.png)
+<p align="center">
+ <em>Figure (6): The architecture of VIMz.</em>
+</p>
+
+It's fully [open source](https://github.com/zero-savvy/vimz), with sample images at SD/HD/4K resolutions and pre-built transformation configs so you can reproduce our benchmarks without touching a single line of circuit code.
+
+
+
 
 ## Try it yourself
 
-The complete implementation — Circom circuits, the Rust/Nova prover, Python GUI, and example smart contracts for a C2PA-compatible marketplace — is available on GitHub (link in the paper). If you're working on media provenance, content authenticity, or just want to see folding schemes doing something other than a toy example, we'd love feedback.
+The complete implementation — Circom circuits, the Rust/Nova prover, Python GUI, and example smart contracts for a C2PA-compatible marketplace — is available on [GitHub](https://github.com/zero-savvy/vimz). If you're working on media provenance, content authenticity, or just want to see folding schemes doing something other than a toy example, we'd love feedback.
+
+
+![Protocol](gui.png)
+<p align="center">
+ <em>Figure (7): VIMz GUI via Python.</em>
+</p>
+
+
+![Protocol](output.png)
+<p align="center">
+ <em>Figure (8): Example output of VIMz.</em>
+</p>
 
 ---
 
-*Full protocol definitions, security proofs, circuit-level details, and the complete experimental breakdown are in our PETS 2025 paper, "VIMz: Private Proofs of Image Manipulation using Folding-based zkSNARKs."*
+*Full protocol definitions, security proofs, circuit-level details, and the complete experimental breakdown are in our [PETS 2025 paper, "VIMz: Private Proofs of Image Manipulation using Folding-based zkSNARKs."](https://petsymposium.org/popets/2025/popets-2025-0065.pdf)*
